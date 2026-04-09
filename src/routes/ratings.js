@@ -7,6 +7,6 @@ const {
 const router = Router();
 
 router.get("/", getRatingsForSong);
-router.post("/");
+router.post("/", rateSong);
 
 module.exports = router;
