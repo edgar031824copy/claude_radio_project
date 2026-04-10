@@ -26,11 +26,33 @@ src/
 
 ## Setup
 
+### Local
+
 ```bash
 cp .env.example .env   # fill in DB credentials
 brew services start postgresql@16
 npm install
 npm start              # http://localhost:3001
+```
+
+### Docker (recommended)
+
+```bash
+cp .env.example .env   # fill in DB_USER and DB_PASSWORD
+
+# Dev — hot reload, postgres sidecar included
+docker compose up
+
+# Prod — production deps only, restarts automatically
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+The postgres container auto-creates the `ratings` table on first start via `db/init.sql`.
+
+## Testing
+
+```bash
+npm test   # runs Jest (12 tests: BE routes + FE DOM)
 ```
 
 ## API
