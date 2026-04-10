@@ -1,3 +1,5 @@
 .env
 # MCP config (contains secrets/tokens)
 .mcp.json
+
+node_modules/
