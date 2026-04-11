@@ -38,7 +38,7 @@ jobs:
       - name: Build image
         run: docker build --target prod -t radiocalico:ci .
       - name: Install Trivy
-        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.58.0
       - name: Scan image with Trivy
         run: trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL --skip-dirs /usr/local/lib/node_modules/npm radiocalico:ci
 
@@ -53,25 +53,3 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-
-  integration:
-    name: Integration Tests
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm test -- --testPathPatterns=backend
-
-  build:
-    name: Build Test
-    runs-on: ubuntu-latest
-    needs: security
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build prod image
-        run: docker build --target prod -t radiocalico:build .
