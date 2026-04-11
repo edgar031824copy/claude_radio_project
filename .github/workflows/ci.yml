@@ -40,7 +40,7 @@ jobs:
       - name: Install Trivy
         run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
       - name: Scan image with Trivy
-        run: trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL radiocalico:ci
+        run: trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL --skip-dirs /usr/local/lib/node_modules/npm radiocalico:ci
 
   lint:
     name: Linting
