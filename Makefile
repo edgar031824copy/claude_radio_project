@@ -15,3 +15,6 @@ down:
 
 logs:
 	docker compose logs -f
+
+security:
+	npm audit
