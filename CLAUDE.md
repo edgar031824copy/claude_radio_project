@@ -65,6 +65,15 @@ The `psql` binary is at `/opt/homebrew/opt/postgresql@16/bin/psql`.
 - Metadata: `https://d3d4yli4hf5bmh.cloudfront.net/metadatav2.json`
 - Cover art: `https://d3d4yli4hf5bmh.cloudfront.net/cover.jpg`
 
+### CI (`.github/workflows/ci.yml`)
+
+Runs on every push to `master` and every PR:
+
+- **`Unit Tests`** job — `npm ci` + `npm test` on Node 20
+- **`Security Scan`** job — `npm audit --audit-level=moderate`
+
+The existing `.github/workflows/claude.yml` is separate — it powers the `@claude` bot in PR/issue comments.
+
 ### MCP / Permissions (`.claude/settings.local.json`)
 
 - `Bash(*)` — all bash commands allowed.

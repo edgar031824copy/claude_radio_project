@@ -40,20 +40,33 @@ npm start              # http://localhost:3001
 ```bash
 cp .env.example .env   # fill in DB_USER and DB_PASSWORD
 
-# Dev — hot reload, postgres sidecar included
-docker compose up
-
-# Prod — production deps only, restarts automatically
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+make dev     # dev stack — hot reload, ports exposed, postgres sidecar
+make prod    # prod stack — nginx on :8080, Express internal only
+make down    # stop all containers
+make logs    # tail dev logs
 ```
 
 The postgres container auto-creates the `ratings` table on first start via `db/init.sql`.
 
+In prod, nginx serves static files from `public/` and proxies `/api/*` to Express. Express is not reachable directly from outside the Docker network.
+
 ## Testing
 
 ```bash
-npm test   # runs Jest (12 tests: BE routes + FE DOM)
+make test      # run Jest (12 tests: BE routes + FE DOM)
+make security  # run npm audit (fails on moderate+ CVEs)
 ```
+
+## CI
+
+GitHub Actions runs on every push to `master` and every pull request:
+
+| Job | What it does |
+|---|---|
+| `Unit Tests` | Installs deps, runs Jest |
+| `Security Scan` | Runs `npm audit --audit-level=moderate` |
+
+Workflow file: `.github/workflows/ci.yml`
 
 ## API
 
