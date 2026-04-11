@@ -18,3 +18,6 @@ logs:
 
 security:
 	npm audit
+
+lint:
+	npm run lint
