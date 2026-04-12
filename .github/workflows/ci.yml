@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       - run: npm test
 
   security:
-    name: Security Scan
+    name: Security Scanning
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,3 +29,27 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --audit-level=moderate
+
+  docker-security:
+    name: Docker Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --target prod -t radiocalico:ci .
+      - name: Install Trivy
+        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      - name: Scan image with Trivy
+        run: trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL --skip-dirs /usr/local/lib/node_modules/npm radiocalico:ci
+
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint

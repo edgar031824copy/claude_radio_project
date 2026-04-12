@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radio Calico</title>
+  <!-- Preconnect to external origins to cut DNS + TLS handshake time -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://d3d4yli4hf5bmh.cloudfront.net" crossorigin />
+  <!-- Preload cover art so it's ready before app.js requests it -->
+  <link rel="preload" href="https://d3d4yli4hf5bmh.cloudfront.net/cover.jpg" as="image" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -79,7 +84,7 @@
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
