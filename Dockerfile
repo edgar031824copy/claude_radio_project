@@ -1,6 +1,5 @@
 # ── Base: shared setup ──────────────────────────────────────────────────────
 FROM node:20-alpine AS base
-RUN apk upgrade --no-cache
 WORKDIR /app
 COPY package*.json ./
 
