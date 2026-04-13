@@ -1,5 +1,7 @@
 # ── Base: shared setup ──────────────────────────────────────────────────────
 FROM node:20-alpine AS base
+ARG APK_UPGRADE=true
+RUN if [ "$APK_UPGRADE" = "true" ]; then apk upgrade --no-cache; else echo "Skipping apk upgrade"; fi
 WORKDIR /app
 COPY package*.json ./
 

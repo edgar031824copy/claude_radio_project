@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image
-        run: docker build --target prod -t radiocalico:ci .
+        run: docker build --target prod --build-arg APK_UPGRADE=true -t radiocalico:ci .
       - name: Install Trivy
         run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
       - name: Scan image with Trivy

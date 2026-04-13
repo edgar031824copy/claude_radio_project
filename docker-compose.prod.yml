@@ -3,6 +3,8 @@ services:
     build:
       context: .
       target: prod
+      args:
+        APK_UPGRADE: "false"
     env_file: .env
     environment:
       DB_HOST: db
