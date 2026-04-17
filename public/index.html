@@ -1,90 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Radio Calico</title>
-  <!-- Preconnect to external origins to cut DNS + TLS handshake time -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="preconnect" href="https://d3d4yli4hf5bmh.cloudfront.net" crossorigin />
-  <!-- Preload cover art so it's ready before app.js requests it -->
-  <link rel="preload" href="https://d3d4yli4hf5bmh.cloudfront.net/cover.jpg" as="image" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="card">
-
-    <!-- Logo -->
-    <div class="logo">
-      <div class="logo-dot"></div>
-      Radio <span>Calico</span>
-    </div>
-
-    <!-- Now playing -->
-    <div class="now-playing" id="nowPlaying">
-      <div class="album-art-wrap">
-        <img class="album-art loading" id="albumArt" src="" alt="Album art" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio Calico</title>
+    <!-- Preconnect to external origins to cut DNS + TLS handshake time -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://d3d4yli4hf5bmh.cloudfront.net"
+      crossorigin
+    />
+    <!-- Preload cover art so it's ready before app.js requests it -->
+    <link
+      rel="preload"
+      href="https://d3d4yli4hf5bmh.cloudfront.net/cover.jpg"
+      as="image"
+    />
+  </head>
+  <body>
+    <div class="card">
+      <!-- Logo -->
+      <div class="logo">
+        <div class="logo-dot"></div>
+        Radio <span>Calico</span>
       </div>
-      <div class="np-info">
-        <div class="np-label">Now Playing</div>
-        <div class="np-title" id="npTitle">—</div>
-        <div class="np-artist" id="npArtist">—</div>
-        <div class="np-album" id="npAlbum">—</div>
-        <div class="np-meta">
-          <span class="badge quality" id="npQuality">—</span>
-          <span class="badge" id="npYear">—</span>
+
+      <!-- Now playing -->
+      <div class="now-playing" id="nowPlaying">
+        <div class="album-art-wrap">
+          <img class="album-art loading" id="albumArt" src="" alt="Album art" />
+        </div>
+        <div class="np-info">
+          <div class="np-label">Now Playing</div>
+          <div class="np-title" id="npTitle">—</div>
+          <div class="np-artist" id="npArtist">—</div>
+          <div class="np-album" id="npAlbum">—</div>
+          <div class="np-meta">
+            <span class="badge quality" id="npQuality">—</span>
+            <span class="badge" id="npYear">—</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Visualizer -->
-    <div class="visualizer" id="visualizer">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <button class="play-btn" id="playBtn" aria-label="Play">
-        <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-      </button>
-
-      <div class="status-group">
-        <div class="status" id="status">Click play to start</div>
-        <div class="elapsed" id="elapsed">00:00</div>
+      <!-- Visualizer -->
+      <div class="visualizer" id="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
       </div>
 
-      <div class="volume-row">
-        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+      <!-- Controls -->
+      <div class="controls">
+        <button class="play-btn" id="playBtn" aria-label="Play">
+          <svg id="iconPlay" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <svg id="iconPause" viewBox="0 0 24 24" style="display: none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+
+        <div class="status-group">
+          <div class="status" id="status">Click play to start</div>
+          <div class="elapsed" id="elapsed">00:00</div>
+        </div>
+
+        <div class="volume-row">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+            />
+          </svg>
+          <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+          />
+        </div>
+      </div>
+
+      <!-- Ratings -->
+      <div class="ratings" id="ratingsRow" style="display: none">
+        <button class="rate-btn" id="btnUp" aria-label="Thumbs up">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"
+            />
+          </svg>
+          <span id="countUp">0</span>
+        </button>
+        <div class="ratings-divider"></div>
+        <button class="rate-btn" id="btnDown" aria-label="Thumbs down">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"
+            />
+          </svg>
+          <span id="countDown">0</span>
+        </button>
+      </div>
+
+      <!-- History -->
+      <div class="history">
+        <div class="history-label">Recently Played</div>
+        <div id="historyList"></div>
       </div>
     </div>
 
-    <!-- Ratings -->
-    <div class="ratings" id="ratingsRow" style="display:none">
-      <button class="rate-btn" id="btnUp" aria-label="Thumbs up">
-        <svg viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
-        <span id="countUp">0</span>
-      </button>
-      <div class="ratings-divider"></div>
-      <button class="rate-btn" id="btnDown" aria-label="Thumbs down">
-        <svg viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>
-        <span id="countDown">0</span>
-      </button>
-    </div>
-
-    <!-- History -->
-    <div class="history">
-      <div class="history-label">Recently Played</div>
-      <div id="historyList"></div>
-    </div>
-
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
-  <script src="app.js" defer></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"
+      defer
+    ></script>
+    <script src="app.js" defer></script>
+  </body>
 </html>
